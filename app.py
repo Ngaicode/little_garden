@@ -4,7 +4,7 @@ from database import Users
 
 
 app = Flask(__name__)
-app.secret_key = "ccccccccccccccccccccccccccccckkkkkkkkkkkkkkkkkkkk"
+app.secret_key = "dtfgcghgfddfxdrxfdxdfzrxgvh"
 
 @app.route('/',methods=["POST","GET"])
 def register():
