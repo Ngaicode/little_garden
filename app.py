@@ -28,7 +28,7 @@ def login():
                 flash("User logged in successfully")
                 session["logged_in"] = True
                 session["name"] = user.name
-                return redirect(url_for("dashboard"))
+                return redirect(url_for("studentrequest"))
         except Users.DoesNotExist:
             flash("wrong username or password")
     return render_template("login.html")
@@ -43,6 +43,14 @@ def about():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
     return render_template("about.html")
+
+@app.route('/studentrequest')
+def studentrequest():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    return render_template("request.html")
+
+
 @app.route('/delete/<int:id>')
 def delete(id):
     if not session.get("logged_in"):
