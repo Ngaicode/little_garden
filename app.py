@@ -38,6 +38,11 @@ def dashboard():
         return redirect(url_for("login"))
     users = Users.select()
     return render_template("dashboard.html", users=users)
+@app.route('/about')
+def about():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    return render_template("about.html")
 @app.route('/delete/<int:id>')
 def delete(id):
     if not session.get("logged_in"):
