@@ -10,3 +10,9 @@ class Users(Model):
     class Meta:
         database = db
 Users.create_table(fail_silently=True)
+#create the requests table
+class Requests(Model):
+    content = CharField()
+    class Meta:
+        database = db
+Requests.create_table(fail_silently=True)

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_bcrypt import generate_password_hash, check_password_hash
-from database import Users
+from database import Users,Requests
 
 
 app = Flask(__name__)
@@ -38,16 +38,26 @@ def dashboard():
         return redirect(url_for("login"))
     users = Users.select()
     return render_template("dashboard.html", users=users)
+@app.route('/viewrequests')
+def viewrequests():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    requests = Requests.select()
+    return render_template("viewrequests.html", requests=requests)
 @app.route('/about')
 def about():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
     return render_template("about.html")
 
-@app.route('/studentrequest')
+@app.route('/studentrequest',methods=["GET","POST"])
 def studentrequest():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
+    if request.method == "POST":
+        content = request.form["content"]
+        Requests.create(content = content)
+        flash("Request submitted successfully")
     return render_template("request.html")
 
 
